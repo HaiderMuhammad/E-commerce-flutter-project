@@ -5,14 +5,20 @@ import 'custom_text.dart';
 
 
 class CustomButton2 extends StatelessWidget {
-  const CustomButton2({Key? key, required this.image, required this.text}) : super(key: key);
+  const CustomButton2({Key? key,
+    required this.image,
+    required this.text,
+    this.onPressed
+  }) : super(key: key);
+
+  final Function()? onPressed;
   final String image;
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       height: 65,
       minWidth: double.infinity,
       shape: RoundedRectangleBorder(

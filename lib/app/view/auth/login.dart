@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:real_e_commerce/app/core/view_model/auth_vm.dart';
 import '../../global_widgets/custom_button1.dart';
 import '../../global_widgets/custom_button2.dart';
 import '../../global_widgets/custom_text.dart';
@@ -7,8 +9,9 @@ import '../../utils/validators.dart';
 
 
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends GetWidget<AuthViewModel> {
+  LoginPage({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Center(
           child: Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -27,19 +31,28 @@ class LoginPage extends StatelessWidget {
                 ),
                 CustomTextField(
                   isEmail: true,
-                  onChanged: (String value) {},
+                  onChanged: (String value) {
+                    controller.email = value;
+                  },
                   validator: Validators.email,
                 ),
                 CustomTextField(
                   isPassword: true,
-                  onChanged: (String value) {},
+                  onChanged: (String value) {
+                    controller.password = value;
+                  },
                   validator: Validators.password,
                 ),
                 Padding(
                     padding:
                     const EdgeInsets.only(left: 10, right: 10, top: 50),
                     child: CustomButton1(
-                      onPressed: () {},
+                      onPressed: () {
+                        _formKey.currentState!.save();
+                        if(_formKey.currentState!.validate()) {
+                          controller.signInWithEmail();
+                        }
+                      },
                       label: 'Login',
                     )
                 ),
@@ -62,10 +75,13 @@ class LoginPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const Padding(
+                Padding(
                     padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 30),
+                    const EdgeInsets.only(left: 10, right: 10, top: 30),
                     child: CustomButton2(
+                      onPressed: () {
+                        controller.googleSignInMethod();
+                      },
                       image: 'assets/images/google.png',
                       text: 'Login with Google',
                     )
