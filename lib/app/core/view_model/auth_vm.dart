@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,22 @@ class AuthViewModel extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late String email, password;
+
+  final _user = Rxn<User>();
+
+
+  String? get user => _user.value?.email;
+
+      // .map((user) => user)
+      // .where((user) => user != null)
+      // .map((user) => user!)
+      // .asBroadcastStream());
+  @override
+  void onInit() {
+    super.onInit();
+    _user.bindStream(_auth.authStateChanges()
+        .where((user) => user != null).map((user) => user!).asBroadcastStream());
+  }
 
 
 

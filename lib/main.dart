@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/utils/bindings.dart';
-import 'app/view/auth/login.dart';
+import 'package:real_e_commerce/app/view/control.dart';
 
 
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialBinding: Binding(),
-      home: LoginPage(),
+      home: const ControlView(),
     );
   }
 }
