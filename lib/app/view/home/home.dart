@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_e_commerce/app/global_widgets/custom_text_field.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -6,6 +7,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(top: 100, right: 20, left: 20),
+        // child: CustomTextField(),
+      ),
+    );
   }
 }

@@ -78,7 +78,7 @@ class RegisterPage extends GetWidget<AuthViewModel> {
                     padding:
                     const EdgeInsets.only(left: 10, right: 10, top: 30),
                     child: CustomButton2(
-                      onPressed: () {
+                      onPressed: () async{
                         controller.googleSignInMethod();
                       },
                       image: 'assets/images/google.png',

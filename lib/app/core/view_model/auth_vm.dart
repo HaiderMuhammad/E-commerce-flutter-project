@@ -1,9 +1,10 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:real_e_commerce/app/core/model/user.dart';
+import 'package:real_e_commerce/app/view/home/home.dart';
+import '../firestore/firestore_user.dart';
 
 
 class AuthViewModel extends GetxController {
@@ -12,7 +13,6 @@ class AuthViewModel extends GetxController {
   late String fullName, email, password;
 
   final _user = Rxn<User>();
-
 
   String? get user => _user.value?.email;
 
@@ -40,7 +40,12 @@ class AuthViewModel extends GetxController {
       accessToken: googleSignInAuth?.accessToken
     );
 
-    await _auth.signInWithCredential(credential);
+    await _auth.signInWithCredential(credential)
+        .then((user) async{
+      saveUserInFireStore(user);
+      Get.offAll(()=> const HomePage());
+    }
+    );
   }
 
 
@@ -49,16 +54,31 @@ class AuthViewModel extends GetxController {
       await _auth.signInWithEmailAndPassword(email: email, password: password)
           .then((value) => debugPrint('$value'));
     }catch(e) {
-      print(e);
+      debugPrint('$e');
     }
   }
 
   void createUserWithEmail() async{
     try{
       await _auth.createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => debugPrint('$value'));
+          .then((user) async{
+            saveUserInFireStore(user);
+      });
+
+
     }catch(e) {
-      print(e);
+      debugPrint('$e');
     }
+  }
+
+  void saveUserInFireStore(UserCredential user) async{
+    await FireStoreUser().addUserToFireStore(
+        UserModel(
+            uid: user.user?.uid,
+            email: user.user?.email,
+            name: user.user?.displayName ?? fullName,
+            pic: ''
+        )
+    );
   }
 }
