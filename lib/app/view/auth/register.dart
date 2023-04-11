@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/core/view_model/auth_vm.dart';
-import 'package:real_e_commerce/app/view/auth/register.dart';
+import 'package:real_e_commerce/app/view/auth/login.dart';
+import 'package:real_e_commerce/app/view/home/home.dart';
 import '../../global_widgets/custom_button1.dart';
 import '../../global_widgets/custom_button2.dart';
 import '../../global_widgets/custom_text.dart';
 import '../../global_widgets/custom_text_field.dart';
 import '../../utils/validators.dart';
-import '../home/home.dart';
 
 
 
-class LoginPage extends GetWidget<AuthViewModel> {
-  LoginPage({Key? key}) : super(key: key);
-  final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+class RegisterPage extends GetWidget<AuthViewModel> {
+  RegisterPage({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black,),
+          onPressed: () => Get.off(()=> LoginPage()),
+        ),
+        backgroundColor: Colors.white10,
+        elevation: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Center(
           child: Form(
-            key: _loginKey,
+            key: _registerKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 120, bottom: 100),
-                  child: CustomText.title(title: 'Welcome back')
+                    padding: const EdgeInsets.only(top: 20, bottom: 100),
+                    child: CustomText.title(title: 'Welcome')
                 ),
+                CustomTextField(
+                  isFullName: true,
+                  onChanged: (String value) {
+                    controller.fullName = value;
+                  }
+                  ),
                 CustomTextField(
                   isEmail: true,
                   onChanged: (String value) {
@@ -50,35 +65,14 @@ class LoginPage extends GetWidget<AuthViewModel> {
                     const EdgeInsets.only(left: 10, right: 10, top: 50),
                     child: CustomButton1(
                       onPressed: () {
-                        _loginKey.currentState!.save();
-                        if(_loginKey.currentState!.validate()) {
-                          controller.signInWithEmail();
+                        _registerKey.currentState!.save();
+                        if(_registerKey.currentState!.validate()) {
+                          controller.createUserWithEmail();
                           Get.to(()=> const HomePage());
-
                         }
                       },
-                      label: 'Login',
+                      label: 'Sign Up',
                     )
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 0),
-                      child: Row(
-                        children: [
-                          CustomText.headLine4(title: 'Don’t have an account?'),
-                          TextButton(
-                            onPressed: () {
-                              Get.to(()=> RegisterPage());
-                            },
-                            child: CustomText.headLine4(
-                                title: 'Sign up', color: const Color(0xff2D4990))
-                          )
-                        ],
-                      ),
-                    )
-                  ],
                 ),
                 Padding(
                     padding:

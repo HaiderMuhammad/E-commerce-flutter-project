@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthViewModel extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late String email, password;
+  late String fullName, email, password;
 
   final _user = Rxn<User>();
 
@@ -47,6 +47,15 @@ class AuthViewModel extends GetxController {
   void signInWithEmail() async{
     try{
       await _auth.signInWithEmailAndPassword(email: email, password: password)
+          .then((value) => debugPrint('$value'));
+    }catch(e) {
+      print(e);
+    }
+  }
+
+  void createUserWithEmail() async{
+    try{
+      await _auth.createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => debugPrint('$value'));
     }catch(e) {
       print(e);

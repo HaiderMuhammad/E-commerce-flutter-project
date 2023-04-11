@@ -12,7 +12,7 @@ class ControlView extends GetView<AuthViewModel> {
   Widget build(BuildContext context) {
     return Obx(() =>
         (controller.user != null)
-            ? const HomePage()
+            ? LoginPage()
             : LoginPage()
     );
   }
