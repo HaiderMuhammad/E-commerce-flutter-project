@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:real_e_commerce/app/core/model/user.dart';
 import 'package:real_e_commerce/app/view/home/home.dart';
-import '../firestore/firestore_user.dart';
+import '../firestore/references.dart';
 
 
 class AuthViewModel extends GetxController {
@@ -72,7 +72,7 @@ class AuthViewModel extends GetxController {
   }
 
   void saveUserInFireStore(UserCredential user) async{
-    await FireStoreUser().addUserToFireStore(
+    await References().addUserToFireStore(
         UserModel(
             uid: user.user?.uid,
             email: user.user?.email,

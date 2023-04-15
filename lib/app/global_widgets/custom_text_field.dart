@@ -14,12 +14,12 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(isFullName ?? false) {
+     if(isFullName ?? false) {
       return textFieldWidget(
         hintText: 'Full Name'
       );
     }
-    if(isEmail ?? false) {
+    else if(isEmail ?? false) {
       return textFieldWidget(
           hintText: 'Email'
       );

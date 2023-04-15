@@ -22,6 +22,7 @@ class CustomButton1 extends StatelessWidget {
         onPressed: onPressed,
         height: 65,
         minWidth: double.infinity,
+        // 67C4A7
         color: buttonColor ?? const Color(0xff2D4980),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5)),
