@@ -18,7 +18,5 @@ class CategoryModel {
     };
   }
 
-  Map<String, dynamic> get toJsonGetter {
-    return toJson(this);
-}
+  Map<String, dynamic> get toJsonGetter => toJson(this);
 }

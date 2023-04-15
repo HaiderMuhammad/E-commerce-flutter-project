@@ -14,7 +14,7 @@ class CategoriesWidget extends GetView<HomeViewModel> {
           height: 50,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: controller.list.length,
+            itemCount: controller.categories.length,
             itemBuilder: (context, index) {
               return Container(
                 margin: const EdgeInsets.only(left: 10),
@@ -37,13 +37,13 @@ class CategoriesWidget extends GetView<HomeViewModel> {
                         ),
                         child: Center(
                             child: Image.network(
-                              controller.list[index].image.toString(),
+                              controller.categories[index].image.toString(),
                               scale: 18,
                               color: Colors.black87,
                             )
                         )),
                     const SizedBox(width: 5,),
-                    CustomText.headLine6(title: controller.list[index].name!)
+                    CustomText.headLine6(title: controller.categories[index].name!)
                   ],
                 ),
               );

@@ -27,7 +27,7 @@ class ProductsList extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6.0),
                   child: Image.asset(
-                    "assets/images/person.jpg",
+                    "assets/images/headset.jpg",
                     fit: BoxFit.cover,
                     height: 123,
                   ),
