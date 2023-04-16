@@ -17,7 +17,7 @@ class CategoriesWidget extends GetView<HomeViewModel> {
             itemCount: controller.categories.length,
             itemBuilder: (context, index) {
               return Container(
-                margin: const EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(right: 10),
                 padding: const EdgeInsets.only(right: 10),
                 width: 110,
                 height: 50,
@@ -43,7 +43,7 @@ class CategoriesWidget extends GetView<HomeViewModel> {
                             )
                         )),
                     const SizedBox(width: 5,),
-                    CustomText.headLine6(title: controller.categories[index].name!)
+                    CustomText.headLine6(title: controller.categories[index].name!.capitalize.toString())
                   ],
                 ),
               );
