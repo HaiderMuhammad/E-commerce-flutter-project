@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:real_e_commerce/app/core/model/cart_product.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
+import 'package:real_e_commerce/app/core/view_model/cart_vm.dart';
 import 'package:real_e_commerce/app/view/details_page/product_color.dart';
 
 
@@ -101,23 +103,26 @@ class DetailsView extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10, top: 60),
-                          child: MaterialButton(
-                            onPressed: () {
-                            },
-                            height: 55,
-                            minWidth: double.infinity,
-                            color: const Color(0xff67C4A7),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5)
+                          child: GetBuilder<CartViewModel> (
+                            init: CartViewModel(),
+                            builder: (controller)=> MaterialButton(
+                              onPressed: () {
+                              },
+                              height: 55,
+                              minWidth: double.infinity,
+                              color: const Color(0xff67C4A7),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)
+                              ),
+                              child: const Text("Add to Cart",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20
+                                  )
+                              ),
                             ),
-                            child: const Text("Add to Cart",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20
-                                )
-                            ),
-                          ),
+                          )
                         ),
                       ],
                     )

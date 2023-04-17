@@ -13,13 +13,9 @@ class AuthViewModel extends GetxController {
   late String fullName, email, password;
 
   final _user = Rxn<User>();
-
   String? get user => _user.value?.email;
 
-      // .map((user) => user)
-      // .where((user) => user != null)
-      // .map((user) => user!)
-      // .asBroadcastStream());
+
   @override
   void onInit() {
     super.onInit();
@@ -71,8 +67,13 @@ class AuthViewModel extends GetxController {
     }
   }
 
+  Future addUserToFireAuth(UserModel userModel) async{
+    return await References().userCollectionRef.doc(userModel.uid)
+        .set(userModel.toJson());
+  }
+
   void saveUserInFireStore(UserCredential user) async{
-    await References().addUserToFireStore(
+    await addUserToFireAuth(
         UserModel(
             uid: user.user?.uid,
             email: user.user?.email,

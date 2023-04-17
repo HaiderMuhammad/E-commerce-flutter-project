@@ -31,7 +31,7 @@ class ProductModel {
     price = json['price'];
   }
 
-  static Map<String, dynamic> toJson(ProductModel product) {
+  static Map<String, dynamic> _toJson(ProductModel product) {
     return {
       'name': product.name,
       'price': product.price,
@@ -43,5 +43,5 @@ class ProductModel {
     };
   }
 
-  Map<String, dynamic> get toJsonGetter => toJson(this);
+  Map<String, dynamic> get toJson => _toJson(this);
 }
