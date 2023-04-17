@@ -9,6 +9,7 @@ class DetailsView extends StatelessWidget {
   DetailsView({super.key, required this.product});
 
 
+
   final RxBool _isLike = false.obs;
 
   @override

@@ -38,6 +38,17 @@ class CustomText {
     );
   }
 
+  static Widget headLine5({required String title, Color? color}) {
+    return Text(
+      title,
+      style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+          color: color ?? Colors.black
+      ),
+    );
+  }
+
   static Widget headLine6({required String title, Color? color}) {
     return Text(
       title,

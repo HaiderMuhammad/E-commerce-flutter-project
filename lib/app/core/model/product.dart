@@ -1,8 +1,13 @@
 
 
 
+import 'package:flutter/material.dart';
+
+import '../../utils/extenstion.dart';
+
 class ProductModel {
-  String? name, image, description, color, size, price, categoryId;
+  String? name, image, description, size, price, categoryId;
+  Color? color;
 
   ProductModel({
     this.name,
@@ -15,10 +20,12 @@ class ProductModel {
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
+    Color hexColor = HexColor.fromHex(json['color']);
+
     name = json['name'];
     size = json['size'];
     image = json['image'];
-    color = json['color'];
+    color = hexColor;
     categoryId = json['categoryId'];
     description = json['description'];
     price = json['price'];
