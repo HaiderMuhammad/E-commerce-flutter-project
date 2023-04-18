@@ -45,8 +45,7 @@ dependencies:
   firebase_core: any
   firebase_auth: ^4.4.0
   google_sign_in: ^6.1.0
-  sqflite: ^2.2.6
-  path: any
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
