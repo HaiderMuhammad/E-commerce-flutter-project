@@ -4,9 +4,10 @@ import 'package:real_e_commerce/app/core/model/cart_product.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
 import 'package:real_e_commerce/app/core/view_model/cart_vm.dart';
 import 'package:real_e_commerce/app/view/details_page/product_color.dart';
+import 'package:uuid/uuid.dart';
 
 
-class DetailsView extends StatelessWidget {
+class DetailsView extends GetView<CartViewModel> {
   final ProductModel? product;
   DetailsView({super.key, required this.product});
 
@@ -106,7 +107,17 @@ class DetailsView extends StatelessWidget {
                           child: GetBuilder<CartViewModel> (
                             init: CartViewModel(),
                             builder: (controller)=> MaterialButton(
-                              onPressed: () {
+                              onPressed: () async{
+                                CartModel cartModel = CartModel(
+                                  id: const Uuid().v4(),
+                                  productId: product?.id,
+                                  name: product?.name,
+                                  price: product?.price,
+                                  image: product?.image,
+                                  quantity: 1
+                                );
+                                await cartModel.save();
+
                               },
                               height: 55,
                               minWidth: double.infinity,

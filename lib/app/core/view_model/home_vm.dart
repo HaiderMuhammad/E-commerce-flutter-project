@@ -34,7 +34,8 @@ class HomeViewModel extends GetxController {
         value.docs.map((e) {
           _products.add(e.data());
         }
-        ).toList());
+        ).toList()
+    );
   }
 
   static Future<String?> getByOrder({required String id}) async{
