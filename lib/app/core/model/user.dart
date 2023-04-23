@@ -1,13 +1,27 @@
 
 
-
+enum Type{
+  ceo,
+  manager,
+  hr,
+  employee
+}
 
 class UserModel {
-  String? uid, email, name, pic;
+  String? uid, email, name, pic, type;
+  late final Type? accountType;
 
-  UserModel({this.uid, this.email, this.name, this.pic});
+  UserModel({
+    this.uid,
+    this.type,
+    this.email,
+    this.name,
+    this.pic
+  }) : accountType = Type.values.firstWhere((e) => e.name == type);
+
 
   UserModel.fromJson(Map  json) {
+    type = json['type'];
     uid = json['uid'];
     email = json['email'];
     name = json['name'];
@@ -19,7 +33,8 @@ class UserModel {
       'uid': uid,
       'email': email,
       'name': name,
-      'pic': pic
+      'pic': pic,
+      'type': type
     };
   }
 }

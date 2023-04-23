@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/core/model/cart_product.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
-import 'package:real_e_commerce/app/core/view_model/cart_vm.dart';
 import 'package:real_e_commerce/app/view/details_page/product_color.dart';
 import 'package:uuid/uuid.dart';
+import '../../core/view_model/cart_vm.dart';
 
 
-class DetailsView extends GetView<CartViewModel> {
+class DetailsView extends StatelessWidget {
   final ProductModel? product;
+
   DetailsView({super.key, required this.product});
 
-
-
   final RxBool _isLike = false.obs;
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,36 +104,39 @@ class DetailsView extends GetView<CartViewModel> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10, top: 60),
-                          child: GetBuilder<CartViewModel> (
-                            init: CartViewModel(),
-                            builder: (controller)=> MaterialButton(
-                              onPressed: () async{
-                                CartModel cartModel = CartModel(
+                          child: MaterialButton(
+                            onPressed: () async{
+                              CartModel cartModel = CartModel(
                                   id: const Uuid().v4(),
                                   productId: product?.id,
                                   name: product?.name,
                                   price: product?.price,
                                   image: product?.image,
                                   quantity: 1
-                                );
-                                await cartModel.save();
-
-                              },
-                              height: 55,
-                              minWidth: double.infinity,
-                              color: const Color(0xff67C4A7),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: const Text("Add to Cart",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20
+                              );
+                              Get.find<CartViewModel>().addToCart(cartModel);
+                              CartViewModel().cartProducts.add(
+                                  CartModel(
+                                    image: product?.image,
+                                    name: product?.name,
+                                    price: product?.price,
                                   )
-                              ),
+                              );
+                            },
+                            height: 55,
+                            minWidth: double.infinity,
+                            color: const Color(0xff67C4A7),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)
                             ),
-                          )
+                            child: const Text("Add to Cart",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20
+                                )
+                            ),
+                          ),
                         ),
                       ],
                     )

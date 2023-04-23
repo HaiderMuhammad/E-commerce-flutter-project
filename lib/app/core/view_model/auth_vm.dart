@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:real_e_commerce/app/core/model/user.dart';
-import 'package:real_e_commerce/app/view/home/home.dart';
+import 'package:real_e_commerce/app/view/navbar.dart';
 import '../firestore/references.dart';
 
 
@@ -39,7 +39,7 @@ class AuthViewModel extends GetxController {
     await _auth.signInWithCredential(credential)
         .then((user) async{
       saveUserInFireStore(user);
-      Get.offAll(()=> const HomePage());
+      Get.offAll(()=> NavBarView());
     }
     );
   }
@@ -78,8 +78,10 @@ class AuthViewModel extends GetxController {
             uid: user.user?.uid,
             email: user.user?.email,
             name: user.user?.displayName ?? fullName,
-            pic: ''
+            pic: user.user?.photoURL ?? '',
+            type: Type.manager.name
         )
     );
   }
+
 }

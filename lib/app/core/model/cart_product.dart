@@ -1,13 +1,12 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:real_e_commerce/app/core/view_model/cart_vm.dart';
-
+import 'package:get/get.dart';
 import '../firestore/references.dart';
+
+
 
 class CartModel {
   String? id, name, image, price, productId;
-  int? quantity;
+  RxInt quantity = 1.obs;
 
   CartModel({
     this.id,
@@ -15,15 +14,16 @@ class CartModel {
     this.name,
     this.image,
     this.price,
-    this.quantity,
-  });
+    int? quantity
+  }) : quantity = RxInt(quantity!);
+
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     image = json['image'];
     price = json['price'];
-    quantity = json['quantity'];
+    quantity = RxInt(json['quantity']);
     productId = json['productId'];
   }
 
@@ -34,7 +34,7 @@ class CartModel {
       'name': cart.name,
       'image': cart.image,
       'price': cart.price,
-      'quantity': cart.quantity
+      'quantity': cart.quantity.value
     };
   }
 
@@ -43,4 +43,7 @@ class CartModel {
   Future<void> save() async {
     await References.cart.doc(id).set(this, SetOptions(merge: true));
   }
+
+  Future get saved => save();
 }
+

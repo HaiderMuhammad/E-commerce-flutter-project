@@ -6,7 +6,7 @@ import '../../global_widgets/custom_button1.dart';
 
 
 
-class CartView extends GetWidget<CartViewModel> {
+class CartView extends GetView<CartViewModel> {
   const CartView({Key? key}) : super(key: key);
 
   @override
@@ -15,118 +15,120 @@ class CartView extends GetWidget<CartViewModel> {
         appBar: AppBar(),
         body: Column(
           children: [
-            Obx(() => Expanded(
-              child: ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: controller.cartProducts.length,
-                itemBuilder: (context, index){
-                  var cartProduct = controller.cartProducts[index];
-                  return Padding(
-                      padding: const EdgeInsets.only(right: 15, top: 30, left: 15),
-                      child: Column(
-                        children: [
-                          Row(
+            Expanded(
+                child: Obx(() => ListView.builder(
+                    itemCount: controller.cartProducts.length,
+                    itemBuilder: (context, index) {
+                      var cartProduct = controller.cartProducts[index];
+                      return Padding(
+                          padding: const EdgeInsets.only(right: 15, top: 30, left: 15),
+                          child: Column(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(6.0),
-                                child: Image.network(cartProduct.image.toString(),
-                                  width: 80,
-                                  height: 85,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    child: Image.network(cartProduct.image.toString(),
+                                      width: 80,
+                                      height: 85,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          cartProduct.name.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              cartProduct.name.toString(),
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.only(top: 8),
+                                              padding: const EdgeInsets.symmetric(horizontal: 5),
+                                              width: 120,
+                                              height: 36,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(width: 0.5, color: Colors.grey),
+                                                  borderRadius: BorderRadius.circular(5)
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    padding: const EdgeInsets.only(right: 9),
+                                                    height: 36,
+                                                    decoration: const BoxDecoration(
+                                                        border: Border(
+                                                            right: BorderSide(width: 0.5, color: Colors.grey)
+                                                        )
+                                                    ),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        controller.increase(cartProduct.quantity);
+                                                      },
+                                                      child: const Icon(Icons.add),
+                                                    ),
+                                                  ),
+                                                  Obx(() => CustomText.headLine5(
+                                                      title: cartProduct.quantity.toString()
+                                                  ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets.only(left: 9),
+                                                    height: 36,
+                                                    decoration: const BoxDecoration(
+                                                        border: Border(
+                                                            left: BorderSide(width: 0.5, color: Colors.grey)
+                                                        )
+                                                    ),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        controller.decrease(cartProduct.quantity);
+                                                      },
+                                                      child: const Icon(Icons.remove),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Text(
+                                              '\$ ${cartProduct.price}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xff67C4A7),
+
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(top: 8),
-                                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                                          width: 120,
-                                          height: 36,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(width: 0.5, color: Colors.grey),
-                                              borderRadius: BorderRadius.circular(5)
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.only(right: 9),
-                                                height: 36,
-                                                decoration: const BoxDecoration(
-                                                    border: Border(
-                                                        right: BorderSide(width: 0.5, color: Colors.grey)
-                                                    )
-                                                ),
-                                                child: GestureDetector(
-                                                  onTap: () {
-
-
-                                                  },
-                                                  child: const Icon(Icons.add),
-                                                ),
-                                              ),
-                                              CustomText.headLine5(
-                                                  title: cartProduct.quantity.toString()
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(left: 9),
-                                                height: 36,
-                                                decoration: const BoxDecoration(
-                                                    border: Border(
-                                                        left: BorderSide(width: 0.5, color: Colors.grey)
-                                                    )
-                                                ),
-                                                child: GestureDetector(
-                                                  onTap: () {},
-                                                  child: const Icon(Icons.remove),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          '\$ ${cartProduct.price}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xff67C4A7),
-
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
-                      )
-                  );
-                }, separatorBuilder: (BuildContext context, int index) { return const SizedBox(height: 10,); },
-              ),
-            ),),
+                          )
+                      );
+                    }
+                )
+                )
+            ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -166,3 +168,5 @@ class CartView extends GetWidget<CartViewModel> {
     );
   }
 }
+
+

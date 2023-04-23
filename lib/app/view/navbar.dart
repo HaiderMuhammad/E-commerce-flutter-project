@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
 import 'package:real_e_commerce/app/view/auth/login.dart';
 import 'package:real_e_commerce/app/view/auth/register.dart';
-import 'package:real_e_commerce/app/view/cart/cart_view.dart';
+import 'package:real_e_commerce/app/view/cart/cart_page.dart';
+import 'package:real_e_commerce/app/view/cart/cart_stream.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../core/view_model/navbar_vm.dart';
 import 'home/home.dart';
@@ -14,10 +14,11 @@ import 'home/home.dart';
 class NavBarView extends GetView<NavBarViewModel> {
   NavBarView({Key? key}) : super(key: key);
 
+
   final pages = [
     const HomePage(),
     LoginPage(),
-    const CartView(),
+    const CartPage(),
     RegisterPage(),
   ];
 
