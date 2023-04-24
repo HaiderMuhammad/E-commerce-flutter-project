@@ -14,8 +14,8 @@ class CartModel {
     this.name,
     this.image,
     this.price,
-    int? quantity
-  }) : quantity = RxInt(quantity!);
+    int quantity = 1
+  }) : quantity = RxInt(quantity);
 
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +44,8 @@ class CartModel {
     await References.cart.doc(id).set(this, SetOptions(merge: true));
   }
 
-  Future get saved => save();
+  Future<void> update(CartModel cartProduct) async {
+    await References.cart.doc(cartProduct.id).update(cartProduct.toJson);
+  }
 }
 

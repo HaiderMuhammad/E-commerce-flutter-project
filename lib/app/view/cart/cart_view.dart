@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:real_e_commerce/app/core/model/cart_product.dart';
 import 'package:real_e_commerce/app/core/view_model/cart_vm.dart';
 import 'package:real_e_commerce/app/global_widgets/custom_text.dart';
 import '../../global_widgets/custom_button1.dart';
@@ -77,8 +78,9 @@ class CartView extends GetView<CartViewModel> {
                                                         )
                                                     ),
                                                     child: GestureDetector(
-                                                      onTap: () {
+                                                      onTap: () async{
                                                         controller.increase(cartProduct.quantity);
+                                                        await CartModel().update(cartProduct);
                                                       },
                                                       child: const Icon(Icons.add),
                                                     ),
@@ -96,8 +98,9 @@ class CartView extends GetView<CartViewModel> {
                                                         )
                                                     ),
                                                     child: GestureDetector(
-                                                      onTap: () {
+                                                      onTap: () async{
                                                         controller.decrease(cartProduct.quantity);
+                                                        await CartModel().update(cartProduct);
                                                       },
                                                       child: const Icon(Icons.remove),
                                                     ),

@@ -47,6 +47,7 @@ class CartViewModel extends GetxController {
         : quantity.value = 1;
   }
 
+
   @override
   void dispose() {
     _cartStreamController.close();
