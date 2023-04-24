@@ -26,7 +26,6 @@ class CartViewModel extends GetxController {
         ).toList()
     );
     _cartProducts.value = list;
-    // debugPrint('New cart products: $_cartProducts');
     _cartStreamController.add(_cartProducts);
     update();
   }

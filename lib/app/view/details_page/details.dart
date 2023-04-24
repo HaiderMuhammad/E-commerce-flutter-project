@@ -105,7 +105,17 @@ class DetailsView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10, top: 60),
                           child: MaterialButton(
-                            onPressed: () async{
+                            onPressed: () {
+                              CartViewModel cartViewModel = Get.find<CartViewModel>();
+
+                              bool alreadyInCart = cartViewModel
+                                  .cartProducts.any((cartProduct) =>
+                              cartProduct.productId == product!.id
+                              );
+
+                              if (alreadyInCart) {
+                                return;
+                              }
                               CartModel cartModel = CartModel(
                                   id: const Uuid().v4(),
                                   productId: product?.id,
@@ -114,15 +124,9 @@ class DetailsView extends StatelessWidget {
                                   image: product?.image,
                                   quantity: 1
                               );
-                              Get.find<CartViewModel>().addToCart(cartModel);
-                              CartViewModel().cartProducts.add(
-                                  CartModel(
-                                    image: product?.image,
-                                    name: product?.name,
-                                    price: product?.price,
-                                  )
-                              );
+                              cartViewModel.addToCart(cartModel);
                             },
+
                             height: 55,
                             minWidth: double.infinity,
                             color: const Color(0xff67C4A7),
@@ -148,3 +152,5 @@ class DetailsView extends StatelessWidget {
     );
   }
 }
+
+

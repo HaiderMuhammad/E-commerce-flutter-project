@@ -6,6 +6,7 @@ import 'package:real_e_commerce/app/view/cart/cart_page.dart';
 import 'package:real_e_commerce/app/view/cart/cart_stream.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../core/view_model/navbar_vm.dart';
+import 'favorite/favorite_view.dart';
 import 'home/home.dart';
 
 
@@ -17,7 +18,7 @@ class NavBarView extends GetView<NavBarViewModel> {
 
   final pages = [
     const HomePage(),
-    LoginPage(),
+    const FavoriteView(),
     const CartPage(),
     RegisterPage(),
   ];

@@ -27,18 +27,18 @@ class CartModel {
     productId = json['productId'];
   }
 
-  static Map<String, dynamic> _toJson(CartModel cart) {
+  Map<String, dynamic> _toJson() {
     return {
-      'id': cart.id,
-      'productId': cart.productId,
-      'name': cart.name,
-      'image': cart.image,
-      'price': cart.price,
-      'quantity': cart.quantity.value
+      'id': id,
+      'productId': productId,
+      'name': name,
+      'image': image,
+      'price': price,
+      'quantity': quantity.value
     };
   }
 
-  Map<String, dynamic> get toJson => _toJson(this);
+  Map<String, dynamic> get toJson => _toJson();
 
   Future<void> save() async {
     await References.cart.doc(id).set(this, SetOptions(merge: true));
