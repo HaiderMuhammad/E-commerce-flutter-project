@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:real_e_commerce/app/core/firestore/references.dart';
+import 'package:real_e_commerce/app/core/data/firestore/references.dart';
 import 'package:real_e_commerce/app/core/model/cart_product.dart';
 
 
@@ -8,8 +8,8 @@ class CartViewModel extends GetxController {
   final RxList<CartModel> _cartProducts = <CartModel>[].obs;
   RxList<CartModel> get cartProducts => _cartProducts;
 
-  final _cartStreamController = StreamController<RxList<CartModel>>.broadcast();
-  Stream<RxList<CartModel>> get cartStream => _cartStreamController.stream;
+  // final _cartStreamController = StreamController<RxList<CartModel>>.broadcast();
+  // Stream<RxList<CartModel>> get cartStream => _cartStreamController.stream;
 
   @override
   void onInit() {
@@ -26,9 +26,34 @@ class CartViewModel extends GetxController {
         ).toList()
     );
     _cartProducts.value = list;
-    _cartStreamController.add(_cartProducts);
     update();
   }
+
+  RxString getTotalPrice() {
+    RxDouble total = 0.0.obs;
+
+    _cartProducts.map((e) {
+      double price = double.parse(e.price!.replaceAll(',','.'));
+      total.value += (price * e.quantity.value).toDouble();
+    }
+    ).toString();
+
+    return total.toStringAsFixed(2).obs;
+  }
+
+  RxString totalPriceOfProduct(CartModel product) {
+    double price = double.parse(product.price!.replaceAll(',', '.'));
+    RxDouble totalPrice = RxDouble(price * product.quantity.value);
+    return totalPrice.value.toStringAsFixed(2).obs;
+  }
+
+
+
+
+// double price = double.parse(product.price!.replaceAll(',', '.'));
+  // RxDouble totalPrice = RxDouble(price * product.quantity.value);
+  // return totalPrice..value = double.parse(totalPrice.value.toStringAsFixed(2));
+
 
   void addToCart(CartModel cartModel) {
     _cartProducts.add(cartModel);
@@ -49,7 +74,7 @@ class CartViewModel extends GetxController {
 
   @override
   void dispose() {
-    _cartStreamController.close();
+    // _cartStreamController.close();
     super.dispose();
   }
 }

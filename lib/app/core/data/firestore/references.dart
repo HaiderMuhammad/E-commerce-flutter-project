@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:real_e_commerce/app/core/firestore/collections.dart';
+import 'package:real_e_commerce/app/core/data/firestore/collections.dart';
 import 'package:real_e_commerce/app/core/model/cateory.dart';
 import 'package:real_e_commerce/app/core/model/favorite.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
+import 'package:real_e_commerce/app/core/model/user.dart';
 
-import '../model/cart_product.dart';
+import '../../model/cart_product.dart';
+
 
 
 
@@ -14,6 +16,11 @@ class References {
       FirebaseFirestore.instance.collection(Collections.auth);
 
   CollectionReference get userCollectionRef => _userCollectionRef;
+
+  static final user = FirebaseFirestore.instance
+      .collection(Collections.auth).withConverter<UserModel>(
+      fromFirestore: (x,_) => UserModel.fromJson(x.data()!),
+      toFirestore: (x,_) => x.toJson());
 
 
   static final categories = FirebaseFirestore.instance

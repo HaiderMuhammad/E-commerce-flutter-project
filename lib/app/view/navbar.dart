@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:real_e_commerce/app/view/auth/login.dart';
-import 'package:real_e_commerce/app/view/auth/register.dart';
 import 'package:real_e_commerce/app/view/cart/cart_page.dart';
-import 'package:real_e_commerce/app/view/cart/cart_stream.dart';
+import 'package:real_e_commerce/app/view/profile/profile_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../core/view_model/navbar_vm.dart';
 import 'favorite/favorite_view.dart';
@@ -20,7 +18,7 @@ class NavBarView extends GetView<NavBarViewModel> {
     const HomePage(),
     const FavoriteView(),
     const CartPage(),
-    RegisterPage(),
+    const ProfilePage(),
   ];
 
   @override

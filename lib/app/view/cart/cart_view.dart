@@ -108,15 +108,15 @@ class CartView extends GetView<CartViewModel> {
                                                 ],
                                               ),
                                             ),
-                                            Text(
-                                              '\$ ${cartProduct.price}',
+                                            Obx(() => Text(
+                                              '\$ ${controller.totalPriceOfProduct(cartProduct)}',
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
                                                 color: Color(0xff67C4A7),
 
                                               ),
-                                            ),
+                                            ),)
                                           ],
                                         ),
                                       ],
@@ -152,7 +152,7 @@ class CartView extends GetView<CartViewModel> {
                       children: [
                         const SizedBox(height: 8,),
                         CustomText.headLine5(title: 'Total Price'),
-                        CustomText.headLine3(title: '\$ 79,99'),
+                        Obx(() => CustomText.headLine3(title: 'Total: \$${controller.getTotalPrice().value}'),)
                       ],
                     ),
                     const SizedBox(width: 10,),

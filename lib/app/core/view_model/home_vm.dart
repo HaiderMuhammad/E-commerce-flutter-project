@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
-import '../firestore/references.dart';
+import '../data/firestore/references.dart';
 import '../model/cateory.dart';
 
 
 
 class HomeViewModel extends GetxController {
 
-  final List<CategoryModel> _categories = [];
-  final List<ProductModel> _products = [];
+  final RxList<CategoryModel> _categories = <CategoryModel>[].obs;
+  final RxList<ProductModel> _products = <ProductModel>[].obs;
 
-  List<CategoryModel> get categories => _categories;
-  List<ProductModel> get products => _products;
+  RxList<CategoryModel> get categories => _categories;
+  RxList<ProductModel> get products => _products;
 
   @override
   void onInit() {
@@ -36,6 +36,7 @@ class HomeViewModel extends GetxController {
         }
         ).toList()
     );
+    update();
   }
 
   static Future<String?> getByOrder({required String id}) async{

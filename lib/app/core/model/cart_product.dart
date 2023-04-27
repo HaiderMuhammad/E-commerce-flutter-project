@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import '../firestore/references.dart';
+
+import '../data/firestore/references.dart';
 
 
 

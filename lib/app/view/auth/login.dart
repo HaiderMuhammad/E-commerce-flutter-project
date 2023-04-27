@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/core/view_model/auth_vm.dart';
 import 'package:real_e_commerce/app/view/auth/register.dart';
+import 'package:real_e_commerce/app/view/navbar.dart';
 import '../../global_widgets/custom_button1.dart';
 import '../../global_widgets/custom_button2.dart';
 import '../../global_widgets/custom_text.dart';
 import '../../global_widgets/custom_text_field.dart';
 import '../../utils/validators.dart';
-import '../home/home.dart';
 
 
 
@@ -53,7 +53,7 @@ class LoginPage extends GetWidget<AuthViewModel> {
                         _loginKey.currentState!.save();
                         if(_loginKey.currentState!.validate()) {
                           controller.signInWithEmail();
-                          Get.to(()=> const HomePage());
+                          Get.offAll(()=> NavBarView());
 
                         }
                       },

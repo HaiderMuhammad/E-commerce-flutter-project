@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../data/firestore/references.dart';
+
 
 
 class FavoriteModel {
@@ -30,6 +34,14 @@ class FavoriteModel {
   }
 
   Map<String, dynamic> get toJson => _toJson();
+
+  Future<void> save() async {
+    await References.favorite.doc(id).set(this, SetOptions(merge: true));
+  }
+
+  Future<void> delete() async {
+    await References.favorite.doc(id).delete();
+  }
 
 
 }
