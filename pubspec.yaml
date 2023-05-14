@@ -44,10 +44,13 @@ dependencies:
   cloud_firestore: ^4.5.0
   firebase_core: any
   firebase_auth: ^4.4.0
+  firebase_messaging: ^14.5.0
+  flutter_local_notifications: ^14.0.0+1
   google_sign_in: ^6.1.0
   uuid: ^3.0.7
   shared_preferences: ^2.1.0
-  status_change: ^2.0.0
+  flutter_slidable: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:

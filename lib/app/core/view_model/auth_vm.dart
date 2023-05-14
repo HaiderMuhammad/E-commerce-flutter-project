@@ -16,11 +16,14 @@ class AuthViewModel extends GetxController {
   late String fullName, email, password;
   final _user = Rxn<User>();
   String? get user => _user.value?.email;
+  String get uid => _auth.currentUser!.uid;
 
 
   @override
   void onInit() {
     super.onInit();
+    print('========');
+    print(_auth.currentUser!.uid);
     _user.bindStream(_auth.authStateChanges()
         .where((user) => user != null).map((user) => user!).asBroadcastStream());
     if(_auth.currentUser != null) {

@@ -49,10 +49,10 @@ class FavoriteViewModel extends GetxController {
     await favoriteModel.save();
   }
 
-  void removeFromFavorite(String id) async{
-    _favoriteProducts.removeWhere((favProduct) => favProduct.productId == id);
+  void removeFromFavorite(FavoriteModel product) async{
+    _favoriteProducts.remove(product);
     update();
-    await FavoriteModel(id: id).delete();
+    await FavoriteModel().delete(product.id!);
   }
 
 }

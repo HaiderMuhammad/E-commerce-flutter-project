@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:real_e_commerce/app/global_widgets/custom_text.dart';
 import 'package:real_e_commerce/app/view/home/widgets/category.dart';
 import 'package:real_e_commerce/app/view/home/widgets/products.dart';
+import 'package:real_e_commerce/app/view/home/widgets/search_view.dart';
 import '../../global_widgets/custom_search_field.dart';
 
 
@@ -16,17 +19,17 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchField(),
+            SearchField(
+              onTap: ()=> Get.to(()=> const SearchView()),
+            ),
             const SizedBox(height: 30,),
             CustomText.headLine3(title: 'Categories', color: Colors.black87),
             const SizedBox(height: 15,),
-            const CategoriesWidget(),
-            const SizedBox(height: 40,),
-            CustomText.headLine3(title: 'Best Selling', color: Colors.black87),
-            const SizedBox(
-              height: 210,
-              child: ProductsList(),
-            )
+            CategoriesWidget(),
+            // const SizedBox(
+            //   height: 210,
+            //   child: ProductsList(),
+            // )
           ],
         ),
       ),

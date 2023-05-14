@@ -2,39 +2,43 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:real_e_commerce/app/core/data/firestore/references.dart';
 import 'package:real_e_commerce/app/core/model/cart_product.dart';
+import 'package:real_e_commerce/app/core/view_model/auth_vm.dart';
 
 
 class CartViewModel extends GetxController {
   final RxList<CartModel> _cartProducts = <CartModel>[].obs;
   RxList<CartModel> get cartProducts => _cartProducts;
 
-  // final _cartStreamController = StreamController<RxList<CartModel>>.broadcast();
-  // Stream<RxList<CartModel>> get cartStream => _cartStreamController.stream;
+  final String currentUid = AuthViewModel().uid;
+
+  final RxList<CartModel> _cartProduct = <CartModel>[].obs;
+  RxList<CartModel> get cartProduct => _cartProduct;
 
   @override
   void onInit() {
     super.onInit();
-    _getCartProducts();
+    _getCart();
   }
 
-  Future<void> _getCartProducts() async{
+  Future<void> _getCart() async{
     final List<CartModel> list =[];
-    await References.cart.get().then((value) =>
+    await References.cartUser.get().then((value) =>
         value.docs.map((doc) {
-          list.add(doc.data()); // use CartModel.fromJson(doc.data()) without withConverter func
-        }
-        ).toList()
-    );
-    _cartProducts.value = list;
+          list.add(doc.data());
+        }).toList());
+    _cartProduct.value = list;
+    print('------${cartProduct.length}');
     update();
   }
+
+
 
   RxString getTotalPrice() {
     RxDouble total = 0.0.obs;
 
-    _cartProducts.map((e) {
+    _cartProduct.map((e) {
       double price = double.parse(e.price!.replaceAll(',','.'));
-      total.value += (price * e.quantity.value).toDouble();
+      total.value += (price * e.quantity.value);
     }
     ).toString();
 
@@ -47,16 +51,8 @@ class CartViewModel extends GetxController {
     return totalPrice.value.toStringAsFixed(2).obs;
   }
 
-
-
-
-// double price = double.parse(product.price!.replaceAll(',', '.'));
-  // RxDouble totalPrice = RxDouble(price * product.quantity.value);
-  // return totalPrice..value = double.parse(totalPrice.value.toStringAsFixed(2));
-
-
   void addToCart(CartModel cartModel) {
-    _cartProducts.add(cartModel);
+    _cartProduct.add(cartModel);
     update(); // Notify listeners about the updated cart list
     cartModel.save();
   }
@@ -79,7 +75,3 @@ class CartViewModel extends GetxController {
   }
 }
 
-
-// Future<void> save() async {
-//   References.account.doc(uid).set(this, SetOptions(merge: true));
-// }

@@ -4,6 +4,7 @@ import 'package:real_e_commerce/app/core/model/cateory.dart';
 import 'package:real_e_commerce/app/core/model/favorite.dart';
 import 'package:real_e_commerce/app/core/model/product.dart';
 import 'package:real_e_commerce/app/core/model/user.dart';
+import 'package:real_e_commerce/app/core/view_model/auth_vm.dart';
 
 import '../../model/cart_product.dart';
 
@@ -11,6 +12,7 @@ import '../../model/cart_product.dart';
 
 
 class References {
+
 
   final CollectionReference _userCollectionRef =
       FirebaseFirestore.instance.collection(Collections.auth);
@@ -22,6 +24,10 @@ class References {
       fromFirestore: (x,_) => UserModel.fromJson(x.data()!),
       toFirestore: (x,_) => x.toJson());
 
+  static final cartUser = FirebaseFirestore.instance
+      .collection(Collections.auth).doc(AuthViewModel().uid).collection('Cart').withConverter<CartModel>(
+      fromFirestore: (x,_) => CartModel.fromJson(x.data()!),
+      toFirestore: (x,_)=> x.toJson);
 
   static final categories = FirebaseFirestore.instance
       .collection(Collections.categories).withConverter<CategoryModel>(
@@ -46,6 +52,4 @@ class References {
       fromFirestore: (x, _) =>  FavoriteModel.fromJson(x.data()!),
       toFirestore: (x, _) => x.toJson
   );
-
-
 }

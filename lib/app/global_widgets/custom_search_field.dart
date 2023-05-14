@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:real_e_commerce/app/core/view_model/home_vm.dart';
 
 
-class SearchField extends StatelessWidget {
-  const SearchField({Key? key, this.controller,}) : super(key: key);
-
-  final TextEditingController? controller;
+class SearchField extends GetView<HomeViewModel> {
+  const SearchField({Key? key,this.onTap}) : super(key: key);
+  final Function()? onTap;
 
 
   @override
@@ -13,7 +14,8 @@ class SearchField extends StatelessWidget {
       Container(
         color: Colors.grey.shade100,
         child: TextField(
-          controller: controller,
+          onChanged: controller.searchProduct,
+          onTap: onTap,
           decoration: InputDecoration(
               hintText: 'Search for a product ...',
               hintStyle: const TextStyle(
@@ -29,13 +31,10 @@ class SearchField extends StatelessWidget {
                 borderSide: const BorderSide(width: 1, color: Colors.blue),
                 borderRadius: BorderRadius.circular(5),
               ),
-              prefixIcon: SizedBox(
+              prefixIcon: const SizedBox(
                 height: 20,
                 width: 20,
-                child: IconButton(
-                    onPressed: (){},
-                    padding: const EdgeInsets.all(0),
-                    icon: const Icon(Icons.search_outlined)),
+                child: Icon(Icons.search_outlined)
               ),
               contentPadding: const EdgeInsets.only(top: 15,bottom: 15)
           ),

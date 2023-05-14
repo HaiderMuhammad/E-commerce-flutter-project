@@ -6,5 +6,4 @@ abstract class Collections {
   static String products = 'Products';
   static String cart = 'Cart';
   static String favorite = 'Favorite';
-  static String vacations = 'vacations';
 }

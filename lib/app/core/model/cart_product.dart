@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-
 import '../data/firestore/references.dart';
 
 
@@ -46,7 +45,12 @@ class CartModel {
   }
 
   Future<void> update(CartModel cartProduct) async {
-    await References.cart.doc(cartProduct.id).update(cartProduct.toJson);
+    // await References.cart.doc(cartProduct.id).update(cartProduct.toJson);
+    await References.cartUser.doc(cartProduct.id).update(cartProduct.toJson);
+  }
+
+  Future<void> delete(String id) async {
+    await References.cartUser.doc(id).delete();
   }
 }
 

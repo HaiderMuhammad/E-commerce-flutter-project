@@ -39,7 +39,7 @@ class FavoriteModel {
     await References.favorite.doc(id).set(this, SetOptions(merge: true));
   }
 
-  Future<void> delete() async {
+  Future<void> delete(String id) async {
     await References.favorite.doc(id).delete();
   }
 
